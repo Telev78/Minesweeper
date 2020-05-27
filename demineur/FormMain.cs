@@ -6,7 +6,7 @@ using System.IO.MemoryMappedFiles;
 
 namespace demineur
 {
-    public partial class Form1 : Form
+    public partial class FormMain : Form
     {
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
         private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont,
@@ -24,7 +24,7 @@ namespace demineur
         Boolean Done = false;
         Boolean Cheat = false;
 
-        public Form1()
+        public FormMain()
         {
             InitializeComponent();
             LoadFont();
@@ -32,14 +32,15 @@ namespace demineur
             this.Icon = Icon.FromHandle(bmp.GetHicon());
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void FormMain_Load(object sender, EventArgs e)
         {
             labelClock.Font = myFont;
             labelMines.Font = myFont;
-            BuildBoard();
+            BuildBoard(true);
+            ResizeForm();
         }
 
-        private void BuildBoard() 
+        private void BuildBoard(Boolean rebuild=false) 
         {
             Done = false;
             Cheat = false;
@@ -50,33 +51,43 @@ namespace demineur
             labelMessage.Text = String.Empty;
             this.buttonNewGame.Image = global::demineur.Properties.Resources.smiley1;
 
-            this.Hide();
-            //Loop Through the rows and columns
-            MineField = new MineCell[BoardRows, BoardCols ];
-            pnlMine.Controls.Clear();
-            for (int Row = 0; Row <= BoardRows - 1; Row++)
+            if (rebuild)
             {
-                for (int Col = 0; Col <= BoardCols - 1; Col++)
+                this.SuspendLayout();
+                //Loop Through the rows and columns
+                MineField = new MineCell[BoardRows, BoardCols];
+                pnlMine.Controls.Clear();
+                for (int Row = 0; Row <= BoardRows - 1; Row++)
                 {
-                    MineCell C = new MineCell();
-                    pnlMine.Controls.Add(C);
-                    C.Left = (CellSize * Col)+1;
-                    C.Top = (CellSize * Row)+1;
-                    C.Width = CellSize;
-                    C.Height = CellSize;
-                    C.HasMine = false;
-                    C.Number = 0;
-                    C.X = Col;
-                    C.Y = Row;
+                    for (int Col = 0; Col <= BoardCols - 1; Col++)
+                    {
+                        MineCell C = new MineCell();
+                        pnlMine.Controls.Add(C);
+                        C.Left = (CellSize * Col) + 1;
+                        C.Top = (CellSize * Row) + 1;
+                        C.Width = CellSize;
+                        C.Height = CellSize;
+                        C.HasMine = false;
+                        C.Number = 0;
+                        C.X = Col;
+                        C.Y = Row;
 
-                    MineField[Row, Col] = C;
-                    C.MouseClick += mine_Click;
-                    C.MouseDoubleClick += mine_MouseDoubleClick;
-                    C.MouseUp += mine_MouseUp;
-                    C.MouseDown += mine_MouseDown;
+                        MineField[Row, Col] = C;
+                        C.MouseClick += mine_Click;
+                        C.MouseDoubleClick += mine_MouseDoubleClick;
+                        C.MouseUp += mine_MouseUp;
+                        C.MouseDown += mine_MouseDown;
+                    }
+                }
+                this.ResumeLayout();
+            }
+            else
+            {
+                foreach(MineCell M in MineField)
+                {
+                    M.Reset();
                 }
             }
-
             //Generate Random Mine Locations
             
             Random RX = new Random();
@@ -104,22 +115,24 @@ namespace demineur
                                     if (MineField[R, C].HasMine)
                                         MineField[Row, Col].Number++;
 
-                    
-               
+        }
 
+        private void ResizeForm ()
+        {
+            this.Hide();
             //Loop to make the form the right size for this number of columns
             this.Width = BoardCols * CellSize;
-            while (this.pnlMine.Width <= (BoardCols * CellSize)+1)
+            while (this.pnlMine.Width <= (BoardCols * CellSize) + 1)
             {
                 this.Width += 1;
             }
 
-            this.Height = BoardRows * CellSize;
-            while (this.pnlMine.Height <= (BoardRows * CellSize)+1)
+            this.Height = (BoardRows * CellSize) + 150;
+            while (this.pnlMine.Height <= (BoardRows * CellSize) + 1)
             {
                 this.Height += 1;
             }
-            
+
             this.Show();
         }
 
@@ -128,8 +141,8 @@ namespace demineur
             BoardRows = Rows;
             BoardCols = Cols;
             MineCount = Mines;
-            BuildBoard();
-
+            BuildBoard(true);
+            ResizeForm();
         }
 
         private void buttonNewGame_Click(object sender, EventArgs e)
@@ -370,7 +383,7 @@ namespace demineur
             Cheat = !Cheat;
         }
 
-        private void Form1_Resize(object sender, EventArgs e)
+        private void FormMain_Resize(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Minimized)
             {

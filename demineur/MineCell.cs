@@ -279,5 +279,14 @@ namespace demineur
                     break;
             }
         }
+
+        public void Reset()
+        {
+            View = MineCellView.Button;
+            HasMine = false;
+            Number = 0;
+            HasExplosed = false;
+            WrongFlag = false;
+        }
     }
 }
