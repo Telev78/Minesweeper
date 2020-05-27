@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using System.Drawing.Text;
 using System.IO.MemoryMappedFiles;
 
-namespace demineur
+namespace minesweeper
 {
     public partial class FormMain : Form
     {
@@ -49,7 +49,7 @@ namespace demineur
             DoLabels();
             timer1.Enabled = false;
             labelMessage.Text = String.Empty;
-            this.buttonNewGame.Image = global::demineur.Properties.Resources.smiley1;
+            this.buttonNewGame.Image = global::minesweeper.Properties.Resources.smiley1;
 
             if (rebuild)
             {
@@ -178,7 +178,7 @@ namespace demineur
                     }
                     timer1.Enabled = false;
                     labelMessage.Text = "Game Over";
-                    this.buttonNewGame.Image = global::demineur.Properties.Resources.smiley3;
+                    this.buttonNewGame.Image = global::minesweeper.Properties.Resources.smiley3;
                     Done = true;
                 }
                 else if (M.Number > 0)
@@ -188,7 +188,7 @@ namespace demineur
                     {
                         timer1.Enabled = false;
                         labelMessage.Text = "You Win !";
-                        this.buttonNewGame.Image = global::demineur.Properties.Resources.smiley4;
+                        this.buttonNewGame.Image = global::minesweeper.Properties.Resources.smiley4;
                         Done = true;
                     }
                 }else if (M.Number == 0)
@@ -198,7 +198,7 @@ namespace demineur
                     {
                         timer1.Enabled = false;
                         labelMessage.Text = "You Win !";
-                        this.buttonNewGame.Image = global::demineur.Properties.Resources.smiley4;
+                        this.buttonNewGame.Image = global::minesweeper.Properties.Resources.smiley4;
                         Done = true;
                     }
                 }
@@ -336,7 +336,7 @@ namespace demineur
         private void mine_MouseUp(object sender, MouseEventArgs e)
         {
             if (Done) return;
-            this.buttonNewGame.Image = global::demineur.Properties.Resources.smiley1;
+            this.buttonNewGame.Image = global::minesweeper.Properties.Resources.smiley1;
             MineCell M = (MineCell)sender;
             
             if (M.View == MineCell.MineCellView.Pressed)
@@ -349,7 +349,7 @@ namespace demineur
             MineCell M = (MineCell)sender;
             if (e.Button == MouseButtons.Left && M.View == MineCell.MineCellView.Button)
             {
-                this.buttonNewGame.Image = global::demineur.Properties.Resources.smiley2;
+                this.buttonNewGame.Image = global::minesweeper.Properties.Resources.smiley2;
 
                 M.View = MineCell.MineCellView.Pressed;
             }

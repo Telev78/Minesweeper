@@ -1,4 +1,4 @@
-﻿namespace demineur
+﻿namespace minesweeper
 {
     partial class FormMain
     {
@@ -188,7 +188,7 @@
             // 
             this.buttonNewGame.BackColor = System.Drawing.SystemColors.Control;
             this.buttonNewGame.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonNewGame.Image = global::demineur.Properties.Resources.smiley1;
+            this.buttonNewGame.Image = global::minesweeper.Properties.Resources.smiley1;
             this.buttonNewGame.Location = new System.Drawing.Point(206, 9);
             this.buttonNewGame.Margin = new System.Windows.Forms.Padding(9);
             this.buttonNewGame.Name = "buttonNewGame";

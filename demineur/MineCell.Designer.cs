@@ -1,4 +1,4 @@
-﻿namespace demineur
+﻿namespace minesweeper
 {
     partial class MineCell
     {

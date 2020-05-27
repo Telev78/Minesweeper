@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 
-namespace demineur
+namespace minesweeper
 {
     public partial class MineCell : UserControl
     {
