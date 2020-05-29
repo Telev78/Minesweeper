@@ -63,8 +63,8 @@ namespace minesweeper
                     {
                         MineCell C = new MineCell();
                         pnlMine.Controls.Add(C);
-                        C.Left = (CellSize * Col) + 1;
-                        C.Top = (CellSize * Row) + 1;
+                        C.Left = (CellSize * Col) + 5;
+                        C.Top = (CellSize * Row) + 5;
                         C.Width = CellSize;
                         C.Height = CellSize;
                         C.HasMine = false;
@@ -130,13 +130,13 @@ namespace minesweeper
             this.Hide();
             //Loop to make the form the right size for this number of columns
             this.Width = BoardCols * CellSize;
-            while (this.pnlMine.Width <= (BoardCols * CellSize) + 1)
+            while (this.pnlMine.Width <= (BoardCols * CellSize) + 10)
             {
                 this.Width += 1;
             }
 
             this.Height = (BoardRows * CellSize) + 150;
-            while (this.pnlMine.Height <= (BoardRows * CellSize) + 1)
+            while (this.pnlMine.Height <= (BoardRows * CellSize) + 10)
             {
                 this.Height += 1;
             }
@@ -156,6 +156,7 @@ namespace minesweeper
         private void buttonNewGame_Click(object sender, EventArgs e)
         {
             BuildBoard();
+            
         }
 
         private void mine_Click(object sender, MouseEventArgs e)
@@ -420,6 +421,15 @@ namespace minesweeper
             {
                 timer1.Enabled = true;
             }
+        }
+
+        private void pnlMine_Paint(object sender, PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics, ((Panel)sender).ClientRectangle,
+               Color.DarkGray, 8, ButtonBorderStyle.Solid, // left
+               Color.DarkGray, 8, ButtonBorderStyle.Solid, // top
+               Color.White, 8, ButtonBorderStyle.Solid, // right
+               Color.White, 8, ButtonBorderStyle.Solid);// bottom
         }
     }
 }

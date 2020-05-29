@@ -136,7 +136,7 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.LightGray;
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
@@ -188,7 +188,7 @@
             // 
             // buttonNewGame
             // 
-            this.buttonNewGame.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonNewGame.BackColor = System.Drawing.Color.LightGray;
             this.buttonNewGame.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonNewGame.Image = global::minesweeper.Properties.Resources.smiley1;
             this.buttonNewGame.Location = new System.Drawing.Point(206, 9);
@@ -196,6 +196,7 @@
             this.buttonNewGame.Name = "buttonNewGame";
             this.buttonNewGame.Size = new System.Drawing.Size(42, 42);
             this.buttonNewGame.TabIndex = 2;
+            this.buttonNewGame.TabStop = false;
             this.buttonNewGame.UseVisualStyleBackColor = false;
             this.buttonNewGame.Click += new System.EventHandler(this.buttonNewGame_Click);
             // 
@@ -209,6 +210,7 @@
             this.pnlMine.Name = "pnlMine";
             this.pnlMine.Size = new System.Drawing.Size(436, 236);
             this.pnlMine.TabIndex = 3;
+            this.pnlMine.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMine_Paint);
             // 
             // labelMessage
             // 
