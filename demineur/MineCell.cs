@@ -64,7 +64,7 @@ namespace minesweeper
         public int Number
         {
             get { return mNumber; }
-            set { mNumber = value; this.Invalidate(); }
+            set { mNumber = value; }
         } 
 
         public MineCellView View

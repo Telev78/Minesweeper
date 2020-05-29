@@ -160,6 +160,7 @@
             // 
             this.labelMines.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.labelMines.BackColor = System.Drawing.Color.Black;
+            this.labelMines.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.labelMines.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelMines.ForeColor = System.Drawing.Color.Red;
             this.labelMines.Location = new System.Drawing.Point(53, 9);
@@ -174,6 +175,7 @@
             // 
             this.labelClock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.labelClock.BackColor = System.Drawing.Color.Black;
+            this.labelClock.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.labelClock.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelClock.ForeColor = System.Drawing.Color.Red;
             this.labelClock.Location = new System.Drawing.Point(310, 9);

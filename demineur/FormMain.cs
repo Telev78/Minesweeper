@@ -27,7 +27,7 @@ namespace minesweeper
         public FormMain()
         {
             InitializeComponent();
-            LoadFont();
+            myFont = LoadFont(Properties.Resources.digital_7__mono_);
             Bitmap bmp = Properties.Resources.mine;
             this.Icon = Icon.FromHandle(bmp.GetHicon());
         }
@@ -88,10 +88,17 @@ namespace minesweeper
                     M.Reset();
                 }
             }
+            
+
+        }
+
+        private void GenerateMineField(MineCell excludedCell)
+        {
             //Generate Random Mine Locations
+            //first click is allways a safe location
             
             Random RX = new Random();
-            for (int i = 1; i<= MineCount; i++)
+            for (int i = 1; i <= MineCount; i++)
             {
                 int X = 0;
                 int Y = 0;
@@ -100,7 +107,7 @@ namespace minesweeper
                 {
                     X = RX.Next(0, BoardCols);
                     Y = RX.Next(0, BoardRows);
-                } while (MineField[Y,X].HasMine);
+                } while (MineField[Y, X].HasMine || MineField[Y,X].Equals(excludedCell));
                 MineField[Y, X].HasMine = true;
 
             }
@@ -108,13 +115,14 @@ namespace minesweeper
             //Count the mines
             for (int Row = 0; Row <= BoardRows - 1; Row++)
                 for (int Col = 0; Col <= BoardCols - 1; Col++)
-                    if (!MineField[Row,Col].HasMine)
+                    if (!MineField[Row, Col].HasMine)
                         for (int R = Row - 1; R <= Row + 1; R++)
                             for (int C = Col - 1; C <= Col + 1; C++)
                                 if (R >= 0 && R < BoardRows && C >= 0 && C < BoardCols && !(Row == R && Col == C))
                                     if (MineField[R, C].HasMine)
                                         MineField[Row, Col].Number++;
 
+            
         }
 
         private void ResizeForm ()
@@ -155,9 +163,14 @@ namespace minesweeper
             if (Done) return;
             MineCell M = (MineCell)sender;
 
-            timer1.Enabled = true;
-            labelMessage.Text = "Game in Progress";
+            //generate minefield on first click
+            if (!timer1.Enabled)
+            {
+                GenerateMineField(M);
 
+                timer1.Enabled = true;
+                labelMessage.Text = "Game in Progress";
+            }
             
 
             if (e.Button == MouseButtons.Left && (M.View == MineCell.MineCellView.Pressed || M.View == MineCell.MineCellView.Button || M.View == MineCell.MineCellView.Question))
@@ -165,41 +178,22 @@ namespace minesweeper
                 if (M.HasMine)
                 {
                     M.HasExplosed = true;
-                    foreach (MineCell MC in MineField)
-                    {
-                        if (MC.HasMine)
-                            MC.View = MineCell.MineCellView.Mine;
-                        if (!MC.HasMine && MC.View == MineCell.MineCellView.Flag)
-                        {
-                            //show wrong mine
-                            MC.View = MineCell.MineCellView.Mine;
-                            MC.WrongFlag = true;
-                        }
-                    }
-                    timer1.Enabled = false;
-                    labelMessage.Text = "Game Over";
-                    this.buttonNewGame.Image = global::minesweeper.Properties.Resources.smiley3;
-                    Done = true;
+                    
+                    EndGame(false);
                 }
                 else if (M.Number > 0)
                 {
                     M.View = MineCell.MineCellView.Number;
                     if (GameOver())
                     {
-                        timer1.Enabled = false;
-                        labelMessage.Text = "You Win !";
-                        this.buttonNewGame.Image = global::minesweeper.Properties.Resources.smiley4;
-                        Done = true;
+                        EndGame(true);
                     }
                 }else if (M.Number == 0)
                 {
                     ShowBlank(M);
                     if (GameOver())
                     {
-                        timer1.Enabled = false;
-                        labelMessage.Text = "You Win !";
-                        this.buttonNewGame.Image = global::minesweeper.Properties.Resources.smiley4;
-                        Done = true;
+                        EndGame(true);
                     }
                 }
             }
@@ -256,6 +250,39 @@ namespace minesweeper
             labelMines.Text = (MineCount - MarkedMines).ToString("000");
         }
 
+        private void EndGame (Boolean WinGame)
+        {
+            timer1.Enabled = false;
+            Done = true;
+            if (WinGame)
+            {
+                labelMessage.Text = "You Win !";
+                this.buttonNewGame.Image = global::minesweeper.Properties.Resources.smiley4;
+
+                foreach (MineCell MC in MineField)
+                {
+                    if (MC.HasMine && MC.View != MineCell.MineCellView.Flag)
+                        MC.View = MineCell.MineCellView.Flag;
+                }
+            }
+            else
+            {
+                labelMessage.Text = "Game Over";
+                this.buttonNewGame.Image = global::minesweeper.Properties.Resources.smiley3;
+
+                foreach (MineCell MC in MineField)
+                {
+                    if (MC.HasMine && MC.View != MineCell.MineCellView.Flag)
+                        MC.View = MineCell.MineCellView.Mine;
+                    if (!MC.HasMine && MC.View == MineCell.MineCellView.Flag)
+                    {
+                        //show wrong mine
+                        MC.View = MineCell.MineCellView.Mine;
+                        MC.WrongFlag = true;
+                    }
+                }
+            }
+        }
         private Boolean GameOver ()
         {
             Boolean TV = true;
@@ -282,17 +309,17 @@ namespace minesweeper
             StartGame(16,30,99);
         }
 
-        private void LoadFont()
+        private Font LoadFont(byte[] fontData)
         {
             // guide from site : https://bugsdb.com/_en/debug/1f151f87d73a17115c55bc6f957f7fca
-            byte[] fontData = Properties.Resources.digital_7__mono_;
+            //byte[] fontData = Properties.Resources.digital_7__mono_;
             IntPtr fontPtr = System.Runtime.InteropServices.Marshal.AllocCoTaskMem(fontData.Length);
             System.Runtime.InteropServices.Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
             uint dummy = 0;
-            fonts.AddMemoryFont(fontPtr, Properties.Resources.digital_7__mono_.Length);
-            AddFontMemResourceEx(fontPtr, (uint)Properties.Resources.digital_7__mono_.Length, IntPtr.Zero, ref dummy);
+            fonts.AddMemoryFont(fontPtr, fontData.Length);
+            AddFontMemResourceEx(fontPtr, (uint)fontData.Length, IntPtr.Zero, ref dummy);
             System.Runtime.InteropServices.Marshal.FreeCoTaskMem(fontPtr);
-            myFont = new Font(fonts.Families[0], 24.0F);
+            return new Font(fonts.Families[fonts.Families.Length - 1], 24.0F);
         }
 
         private void mine_MouseDoubleClick(object sender, MouseEventArgs e)
