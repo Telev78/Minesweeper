@@ -45,9 +45,9 @@
             this.labelMessage = new System.Windows.Forms.Label();
             this.panelTop = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.labelMines = new System.Windows.Forms.Label();
             this.buttonNewGame = new System.Windows.Forms.Button();
             this.labelClock = new System.Windows.Forms.Label();
+            this.labelMines = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -188,7 +188,7 @@
             this.panelTop.Name = "panelTop";
             this.panelTop.Size = new System.Drawing.Size(436, 36);
             this.panelTop.TabIndex = 5;
-            this.panelTop.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMine_Paint);
+            this.panelTop.Paint += new System.Windows.Forms.PaintEventHandler(this.panelTop_Paint);
             // 
             // tableLayoutPanel2
             // 
@@ -208,19 +208,6 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(436, 36);
             this.tableLayoutPanel2.TabIndex = 0;
-            // 
-            // labelMines
-            // 
-            this.labelMines.BackColor = System.Drawing.Color.Black;
-            this.labelMines.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMines.ForeColor = System.Drawing.Color.Red;
-            this.labelMines.Location = new System.Drawing.Point(8, 6);
-            this.labelMines.Margin = new System.Windows.Forms.Padding(8, 6, 2, 8);
-            this.labelMines.Name = "labelMines";
-            this.labelMines.Size = new System.Drawing.Size(46, 22);
-            this.labelMines.TabIndex = 0;
-            this.labelMines.Text = "000";
-            this.labelMines.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // buttonNewGame
             // 
@@ -253,6 +240,19 @@
             this.labelClock.TabIndex = 1;
             this.labelClock.Text = "000";
             this.labelClock.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelMines
+            // 
+            this.labelMines.BackColor = System.Drawing.Color.Black;
+            this.labelMines.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMines.ForeColor = System.Drawing.Color.Red;
+            this.labelMines.Location = new System.Drawing.Point(8, 6);
+            this.labelMines.Margin = new System.Windows.Forms.Padding(8, 6, 2, 8);
+            this.labelMines.Name = "labelMines";
+            this.labelMines.Size = new System.Drawing.Size(46, 22);
+            this.labelMines.TabIndex = 0;
+            this.labelMines.Text = "000";
+            this.labelMines.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // timer1
             // 

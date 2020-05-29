@@ -63,8 +63,8 @@ namespace minesweeper
                     {
                         MineCell C = new MineCell();
                         pnlMine.Controls.Add(C);
-                        C.Left = (CellSize * Col) + 2;
-                        C.Top = (CellSize * Row) + 2;
+                        C.Left = (CellSize * Col) + 3;
+                        C.Top = (CellSize * Row) + 3;
                         C.Width = CellSize;
                         C.Height = CellSize;
                         C.HasMine = false;
@@ -128,13 +128,13 @@ namespace minesweeper
             this.Hide();
             //Loop to make the form the right size for this number of columns
             this.Width = BoardCols * CellSize;
-            while (this.pnlMine.Width <= (BoardCols * CellSize) + 3)
+            while (this.pnlMine.Width <= (BoardCols * CellSize) + 5)
             {
                 this.Width += 1;
             }
 
             this.Height = (BoardRows * CellSize) + 150;
-            while (this.pnlMine.Height <= (BoardRows * CellSize) + 3)
+            while (this.pnlMine.Height <= (BoardRows * CellSize) + 5)
             {
                 this.Height += 1;
             }
@@ -425,10 +425,10 @@ namespace minesweeper
         private void pnlMine_Paint(object sender, PaintEventArgs e)
         {
             ControlPaint.DrawBorder(e.Graphics, ((Panel)sender).ClientRectangle,
-               Color.DarkGray, 2, ButtonBorderStyle.Solid, // left
-               Color.DarkGray, 2, ButtonBorderStyle.Solid, // top
-               Color.White, 2, ButtonBorderStyle.Solid, // right
-               Color.White, 2, ButtonBorderStyle.Solid);// bottom
+               Color.DarkGray, 3, ButtonBorderStyle.Solid, // left
+               Color.DarkGray, 3, ButtonBorderStyle.Solid, // top
+               Color.White, 3, ButtonBorderStyle.Solid, // right
+               Color.White, 3, ButtonBorderStyle.Solid);// bottom
         }
 
         private void buttonNewGame_Paint(object sender, PaintEventArgs e)
@@ -438,6 +438,15 @@ namespace minesweeper
                Color.White, 2, ButtonBorderStyle.Solid, // top
                Color.DarkGray, 2, ButtonBorderStyle.Solid, // right
                Color.DarkGray, 2, ButtonBorderStyle.Solid);// bottom
+        }
+
+        private void panelTop_Paint(object sender, PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics, ((Panel)sender).ClientRectangle,
+               Color.DarkGray, 2, ButtonBorderStyle.Solid, // left
+               Color.DarkGray, 2, ButtonBorderStyle.Solid, // top
+               Color.White, 2, ButtonBorderStyle.Solid, // right
+               Color.White, 2, ButtonBorderStyle.Solid);// bottom
         }
     }
 }
