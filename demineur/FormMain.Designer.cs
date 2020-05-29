@@ -41,14 +41,18 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.labelMines = new System.Windows.Forms.Label();
-            this.labelClock = new System.Windows.Forms.Label();
-            this.buttonNewGame = new System.Windows.Forms.Button();
             this.pnlMine = new System.Windows.Forms.Panel();
             this.labelMessage = new System.Windows.Forms.Label();
+            this.panelTop = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.labelMines = new System.Windows.Forms.Label();
+            this.buttonNewGame = new System.Windows.Forms.Button();
+            this.labelClock = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.panelTop.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -137,84 +141,35 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.LightGray;
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.labelMines, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.labelClock, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.buttonNewGame, 1, 0);
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.pnlMine, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.labelMessage, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.panelTop, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(454, 344);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
-            // labelMines
-            // 
-            this.labelMines.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.labelMines.BackColor = System.Drawing.Color.Black;
-            this.labelMines.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelMines.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMines.ForeColor = System.Drawing.Color.Red;
-            this.labelMines.Location = new System.Drawing.Point(53, 9);
-            this.labelMines.Margin = new System.Windows.Forms.Padding(9);
-            this.labelMines.Name = "labelMines";
-            this.labelMines.Size = new System.Drawing.Size(90, 42);
-            this.labelMines.TabIndex = 0;
-            this.labelMines.Text = "0";
-            this.labelMines.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelClock
-            // 
-            this.labelClock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.labelClock.BackColor = System.Drawing.Color.Black;
-            this.labelClock.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelClock.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelClock.ForeColor = System.Drawing.Color.Red;
-            this.labelClock.Location = new System.Drawing.Point(310, 9);
-            this.labelClock.Margin = new System.Windows.Forms.Padding(9);
-            this.labelClock.Name = "labelClock";
-            this.labelClock.Size = new System.Drawing.Size(90, 42);
-            this.labelClock.TabIndex = 1;
-            this.labelClock.Text = "0";
-            this.labelClock.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // buttonNewGame
-            // 
-            this.buttonNewGame.BackColor = System.Drawing.Color.LightGray;
-            this.buttonNewGame.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonNewGame.Image = global::minesweeper.Properties.Resources.smiley1;
-            this.buttonNewGame.Location = new System.Drawing.Point(206, 9);
-            this.buttonNewGame.Margin = new System.Windows.Forms.Padding(9);
-            this.buttonNewGame.Name = "buttonNewGame";
-            this.buttonNewGame.Size = new System.Drawing.Size(42, 42);
-            this.buttonNewGame.TabIndex = 2;
-            this.buttonNewGame.TabStop = false;
-            this.buttonNewGame.UseVisualStyleBackColor = false;
-            this.buttonNewGame.Click += new System.EventHandler(this.buttonNewGame_Click);
-            // 
             // pnlMine
             // 
-            this.pnlMine.BackColor = System.Drawing.SystemColors.Control;
-            this.tableLayoutPanel1.SetColumnSpan(this.pnlMine, 3);
+            this.pnlMine.BackColor = System.Drawing.Color.DarkGray;
             this.pnlMine.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMine.Location = new System.Drawing.Point(9, 69);
+            this.pnlMine.Location = new System.Drawing.Point(9, 54);
             this.pnlMine.Margin = new System.Windows.Forms.Padding(9);
             this.pnlMine.Name = "pnlMine";
-            this.pnlMine.Size = new System.Drawing.Size(436, 236);
+            this.pnlMine.Size = new System.Drawing.Size(436, 251);
             this.pnlMine.TabIndex = 3;
             this.pnlMine.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMine_Paint);
             // 
             // labelMessage
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.labelMessage, 3);
             this.labelMessage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelMessage.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelMessage.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -223,6 +178,81 @@
             this.labelMessage.Size = new System.Drawing.Size(448, 30);
             this.labelMessage.TabIndex = 4;
             this.labelMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelTop
+            // 
+            this.panelTop.Controls.Add(this.tableLayoutPanel2);
+            this.panelTop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelTop.Location = new System.Drawing.Point(9, 9);
+            this.panelTop.Margin = new System.Windows.Forms.Padding(9, 9, 9, 0);
+            this.panelTop.Name = "panelTop";
+            this.panelTop.Size = new System.Drawing.Size(436, 36);
+            this.panelTop.TabIndex = 5;
+            this.panelTop.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMine_Paint);
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.BackColor = System.Drawing.Color.Transparent;
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.buttonNewGame, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.labelClock, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.labelMines, 0, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(436, 36);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // labelMines
+            // 
+            this.labelMines.BackColor = System.Drawing.Color.Black;
+            this.labelMines.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMines.ForeColor = System.Drawing.Color.Red;
+            this.labelMines.Location = new System.Drawing.Point(8, 6);
+            this.labelMines.Margin = new System.Windows.Forms.Padding(8, 6, 2, 8);
+            this.labelMines.Name = "labelMines";
+            this.labelMines.Size = new System.Drawing.Size(46, 22);
+            this.labelMines.TabIndex = 0;
+            this.labelMines.Text = "000";
+            this.labelMines.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // buttonNewGame
+            // 
+            this.buttonNewGame.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.buttonNewGame.BackColor = System.Drawing.Color.LightGray;
+            this.buttonNewGame.BackgroundImage = global::minesweeper.Properties.Resources.smiley1;
+            this.buttonNewGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonNewGame.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.buttonNewGame.FlatAppearance.BorderSize = 2;
+            this.buttonNewGame.Location = new System.Drawing.Point(205, 5);
+            this.buttonNewGame.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.buttonNewGame.Name = "buttonNewGame";
+            this.buttonNewGame.Size = new System.Drawing.Size(26, 26);
+            this.buttonNewGame.TabIndex = 2;
+            this.buttonNewGame.TabStop = false;
+            this.buttonNewGame.UseVisualStyleBackColor = false;
+            this.buttonNewGame.Click += new System.EventHandler(this.buttonNewGame_Click);
+            this.buttonNewGame.Paint += new System.Windows.Forms.PaintEventHandler(this.buttonNewGame_Paint);
+            // 
+            // labelClock
+            // 
+            this.labelClock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelClock.BackColor = System.Drawing.Color.Black;
+            this.labelClock.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelClock.ForeColor = System.Drawing.Color.Red;
+            this.labelClock.Location = new System.Drawing.Point(382, 6);
+            this.labelClock.Margin = new System.Windows.Forms.Padding(2, 6, 8, 8);
+            this.labelClock.Name = "labelClock";
+            this.labelClock.Size = new System.Drawing.Size(46, 22);
+            this.labelClock.TabIndex = 1;
+            this.labelClock.Text = "000";
+            this.labelClock.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // timer1
             // 
@@ -247,6 +277,8 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.panelTop.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -272,6 +304,8 @@
         private System.Windows.Forms.ToolStripMenuItem cheatToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.Panel panelTop;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
     }
 }
 

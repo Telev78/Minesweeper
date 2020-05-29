@@ -14,7 +14,7 @@ namespace minesweeper
         private PrivateFontCollection fonts = new PrivateFontCollection();
         private Font myFont;
 
-        int CellSize = 24;
+        int CellSize = 16;
         int BoardRows = 9;
         int BoardCols = 9;
         int MineCount = 10;
@@ -49,7 +49,7 @@ namespace minesweeper
             DoLabels();
             timer1.Enabled = false;
             labelMessage.Text = String.Empty;
-            this.buttonNewGame.Image = global::minesweeper.Properties.Resources.smiley1;
+            this.buttonNewGame.BackgroundImage = global::minesweeper.Properties.Resources.smiley1;
 
             if (rebuild)
             {
@@ -63,8 +63,8 @@ namespace minesweeper
                     {
                         MineCell C = new MineCell();
                         pnlMine.Controls.Add(C);
-                        C.Left = (CellSize * Col) + 5;
-                        C.Top = (CellSize * Row) + 5;
+                        C.Left = (CellSize * Col) + 2;
+                        C.Top = (CellSize * Row) + 2;
                         C.Width = CellSize;
                         C.Height = CellSize;
                         C.HasMine = false;
@@ -88,8 +88,6 @@ namespace minesweeper
                     M.Reset();
                 }
             }
-            
-
         }
 
         private void GenerateMineField(MineCell excludedCell)
@@ -130,13 +128,13 @@ namespace minesweeper
             this.Hide();
             //Loop to make the form the right size for this number of columns
             this.Width = BoardCols * CellSize;
-            while (this.pnlMine.Width <= (BoardCols * CellSize) + 10)
+            while (this.pnlMine.Width <= (BoardCols * CellSize) + 3)
             {
                 this.Width += 1;
             }
 
             this.Height = (BoardRows * CellSize) + 150;
-            while (this.pnlMine.Height <= (BoardRows * CellSize) + 10)
+            while (this.pnlMine.Height <= (BoardRows * CellSize) + 3)
             {
                 this.Height += 1;
             }
@@ -258,7 +256,8 @@ namespace minesweeper
             if (WinGame)
             {
                 labelMessage.Text = "You Win !";
-                this.buttonNewGame.Image = global::minesweeper.Properties.Resources.smiley4;
+                labelMines.Text = 0.ToString("000");
+                this.buttonNewGame.BackgroundImage = global::minesweeper.Properties.Resources.smiley4;
 
                 foreach (MineCell MC in MineField)
                 {
@@ -269,7 +268,7 @@ namespace minesweeper
             else
             {
                 labelMessage.Text = "Game Over";
-                this.buttonNewGame.Image = global::minesweeper.Properties.Resources.smiley3;
+                this.buttonNewGame.BackgroundImage = global::minesweeper.Properties.Resources.smiley3;
 
                 foreach (MineCell MC in MineField)
                 {
@@ -320,7 +319,7 @@ namespace minesweeper
             fonts.AddMemoryFont(fontPtr, fontData.Length);
             AddFontMemResourceEx(fontPtr, (uint)fontData.Length, IntPtr.Zero, ref dummy);
             System.Runtime.InteropServices.Marshal.FreeCoTaskMem(fontPtr);
-            return new Font(fonts.Families[fonts.Families.Length - 1], 24.0F);
+            return new Font(fonts.Families[fonts.Families.Length - 1], 16.0F, FontStyle.Bold);
         }
 
         private void mine_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -364,7 +363,7 @@ namespace minesweeper
         private void mine_MouseUp(object sender, MouseEventArgs e)
         {
             if (Done) return;
-            this.buttonNewGame.Image = global::minesweeper.Properties.Resources.smiley1;
+            this.buttonNewGame.BackgroundImage = global::minesweeper.Properties.Resources.smiley1;
             MineCell M = (MineCell)sender;
             
             if (M.View == MineCell.MineCellView.Pressed)
@@ -377,7 +376,7 @@ namespace minesweeper
             MineCell M = (MineCell)sender;
             if (e.Button == MouseButtons.Left && M.View == MineCell.MineCellView.Button)
             {
-                this.buttonNewGame.Image = global::minesweeper.Properties.Resources.smiley2;
+                this.buttonNewGame.BackgroundImage = global::minesweeper.Properties.Resources.smiley2;
 
                 M.View = MineCell.MineCellView.Pressed;
             }
@@ -426,10 +425,19 @@ namespace minesweeper
         private void pnlMine_Paint(object sender, PaintEventArgs e)
         {
             ControlPaint.DrawBorder(e.Graphics, ((Panel)sender).ClientRectangle,
-               Color.DarkGray, 8, ButtonBorderStyle.Solid, // left
-               Color.DarkGray, 8, ButtonBorderStyle.Solid, // top
-               Color.White, 8, ButtonBorderStyle.Solid, // right
-               Color.White, 8, ButtonBorderStyle.Solid);// bottom
+               Color.DarkGray, 2, ButtonBorderStyle.Solid, // left
+               Color.DarkGray, 2, ButtonBorderStyle.Solid, // top
+               Color.White, 2, ButtonBorderStyle.Solid, // right
+               Color.White, 2, ButtonBorderStyle.Solid);// bottom
+        }
+
+        private void buttonNewGame_Paint(object sender, PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics, ((Button)sender).ClientRectangle,
+               Color.White, 2, ButtonBorderStyle.Solid, // left
+               Color.White, 2, ButtonBorderStyle.Solid, // top
+               Color.DarkGray, 2, ButtonBorderStyle.Solid, // right
+               Color.DarkGray, 2, ButtonBorderStyle.Solid);// bottom
         }
     }
 }

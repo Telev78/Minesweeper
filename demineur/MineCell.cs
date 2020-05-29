@@ -85,33 +85,14 @@ namespace minesweeper
             {
                 case MineCellView.Button:
                     {
-                        //Set Scale
-                        e.Graphics.ResetTransform();
-                        e.Graphics.TranslateTransform(this.Width / 2, this.Height / 2);
-                        e.Graphics.ScaleTransform(this.Width / 2, this.Height / 2);
                         e.Graphics.Clear(mButtonColor);
 
-                        PointF TopLeft = new PointF(-1, -1);
-                        PointF TopRight = new PointF(1, -1);
-                        PointF BotLeft = new PointF(-1, 1);
-                        PointF BotRight = new PointF(1, 1);
 
-                        //Draw Shadow
-                        Pen mPen = new Pen(Color.Gray, .3F);
-                        e.Graphics.DrawLine(mPen, BotRight, BotLeft);
-                        e.Graphics.DrawLine(mPen, BotRight, TopRight);
-
-                        //Draw Highligth
-                        mPen = new Pen(Color.White, .3F);
-                        e.Graphics.DrawLine(mPen, TopLeft, BotLeft);
-                        e.Graphics.DrawLine(mPen, TopLeft, TopRight);
-                        
-                        //Draw corner shadow
-                        SolidBrush FBrush = new SolidBrush(Color.Gray);
-                        PointF[] FPts = { new PointF(-1, 1), new PointF(-0.85F,1), new PointF(-0.85F,0.85F) };
-                        e.Graphics.FillPolygon(FBrush, FPts);
-                        FPts = new PointF[] { new PointF(1, -1), new PointF(1, -0.85F), new PointF(0.85F, -0.85F) };
-                        e.Graphics.FillPolygon(FBrush, FPts);
+                        ControlPaint.DrawBorder(e.Graphics, this.ClientRectangle,
+                            Color.White, 2, ButtonBorderStyle.Solid, // left
+                            Color.White, 2, ButtonBorderStyle.Solid, // top
+                            Color.Gray, 2, ButtonBorderStyle.Solid, // right
+                            Color.Gray, 2, ButtonBorderStyle.Solid);// bottom
                     }
                     break;
                 case MineCellView.Mine:
@@ -155,7 +136,7 @@ namespace minesweeper
 
                         if(mWrongFlag)
                         {
-                            Pen mPen = new Pen(Color.Red, .15F);
+                            Pen mPen = new Pen(Color.Red, .2F);
                             e.Graphics.DrawLine(mPen, new PointF(-.8F, -.8F), new PointF(.8F, .8F));
                             e.Graphics.DrawLine(mPen, new PointF(-.8F, .8F), new PointF(.8F, -.8F));
                         }
@@ -187,27 +168,20 @@ namespace minesweeper
                     break;
                 case MineCellView.Flag:
                     {
+                        e.Graphics.Clear(Color.LightGray);
+                        ControlPaint.DrawBorder(e.Graphics, this.ClientRectangle,
+                            Color.White, 2, ButtonBorderStyle.Solid, // left
+                            Color.White, 2, ButtonBorderStyle.Solid, // top
+                            Color.Gray, 2, ButtonBorderStyle.Solid, // right
+                            Color.Gray, 2, ButtonBorderStyle.Solid);// bottom
+
+
                         //Set Scale
                         e.Graphics.ResetTransform();
                         e.Graphics.TranslateTransform(this.Width / 2, this.Height / 2);
                         e.Graphics.ScaleTransform(this.Width / 2, this.Height / 2);
-                        e.Graphics.Clear(Color.LightGray);
-
-                        PointF TopLeft = new PointF(-1, -1);
-                        PointF TopRight = new PointF(1, -1);
-                        PointF BotLeft = new PointF(-1, 1);
-                        PointF BotRight = new PointF(1, 1);
-
-                        //Draw Shadow
-                        Pen mPen = new Pen(Color.Gray, .3F);
-                        e.Graphics.DrawLine(mPen, BotRight, BotLeft);
-                        e.Graphics.DrawLine(mPen, BotRight, TopRight);
-
-                        //Draw Highligth
-                        mPen = new Pen(Color.White, .3F);
-                        e.Graphics.DrawLine(mPen, TopLeft, BotLeft);
-                        e.Graphics.DrawLine(mPen, TopLeft, TopRight);
-
+                      
+                        
                         //Flag Points
                         PointF PoleTop = new PointF(0, -.7F);
                         PointF PoleBottom = new PointF(0, .5F);
@@ -219,7 +193,7 @@ namespace minesweeper
                         PointF BaseBR = new PointF(.7F, .7F);
 
                         //Pole
-                        mPen = new Pen(Color.Brown, .1F);
+                        Pen mPen = new Pen(Color.Brown, .1F);
                         e.Graphics.DrawLine(mPen, PoleTop, PoleBottom);
 
                         //Flag
@@ -236,30 +210,24 @@ namespace minesweeper
                     break;
                 case MineCellView.Question:
                     {
+                        e.Graphics.Clear(Color.LightGray);
+                        ControlPaint.DrawBorder(e.Graphics, this.ClientRectangle,
+                            Color.White, 2, ButtonBorderStyle.Solid, // left
+                            Color.White, 2, ButtonBorderStyle.Solid, // top
+                            Color.Gray, 2, ButtonBorderStyle.Solid, // right
+                            Color.Gray, 2, ButtonBorderStyle.Solid);// bottom
+                        
                         //Set Scale
                         e.Graphics.ResetTransform();
                         e.Graphics.TranslateTransform(this.Width / 2, this.Height / 2);
                         e.Graphics.ScaleTransform(this.Width / 2, this.Height / 2);
-                        e.Graphics.Clear(Color.LightGray);
+                        
 
                         //Draw ?
                         SolidBrush NBrush = new SolidBrush(Color.Black);
                         Font myFont = new Font("Times", 1.5F, FontStyle.Bold, GraphicsUnit.World);
                         SizeF SS = e.Graphics.MeasureString("?", myFont);
                         e.Graphics.DrawString("?", myFont, NBrush, -SS.Width / 2, -SS.Height / 2);
-
-                        PointF TopLeft = new PointF(-1, -1);
-                        PointF TopRight = new PointF(1, -1);
-                        PointF BotLeft = new PointF(-1, 1);
-                        PointF BotRight = new PointF(1, 1);
-
-                        Pen mPen = new Pen(Color.Gray, .3F);
-                        e.Graphics.DrawLine(mPen, BotRight, BotLeft);
-                        e.Graphics.DrawLine(mPen, BotRight, TopRight);
-
-                        mPen = new Pen(Color.White, .3F);
-                        e.Graphics.DrawLine(mPen, TopLeft, BotLeft);
-                        e.Graphics.DrawLine(mPen, TopLeft, TopRight);
                     }
 
                     break;
