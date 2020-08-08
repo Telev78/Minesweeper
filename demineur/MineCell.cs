@@ -76,6 +76,8 @@ namespace minesweeper
         public MineCell()
         {
             InitializeComponent();
+            //prevent flickering
+            this.DoubleBuffered = true;
         }
 
         protected override void OnPaint(PaintEventArgs e)

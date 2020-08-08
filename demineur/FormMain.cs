@@ -62,7 +62,7 @@ namespace minesweeper
                     for (int Col = 0; Col <= BoardCols - 1; Col++)
                     {
                         MineCell C = new MineCell();
-                        pnlMine.Controls.Add(C);
+                        
                         C.Left = (CellSize * Col) + 3;
                         C.Top = (CellSize * Row) + 3;
                         C.Width = CellSize;
@@ -77,6 +77,8 @@ namespace minesweeper
                         C.MouseDoubleClick += mine_MouseDoubleClick;
                         C.MouseUp += mine_MouseUp;
                         C.MouseDown += mine_MouseDown;
+
+                        pnlMine.Controls.Add(C);
                     }
                 }
                 this.ResumeLayout();
@@ -335,8 +337,7 @@ namespace minesweeper
                     {
                         if (R >= 0 && R < BoardRows && C >= 0 && C < BoardCols)
                         {
-                            MineCell MC = MineField[R, C];
-                            if (MC.View == MineCell.MineCellView.Flag)
+                            if (MineField[R, C].View == MineCell.MineCellView.Flag)
                                 FC++;
 
                         }
@@ -349,10 +350,9 @@ namespace minesweeper
                     {
                         if (R >= 0 && R < BoardRows && C >= 0 && C < BoardCols)
                         {
-                            MineCell MC = MineField[R, C];
-                            if (MC.View == MineCell.MineCellView.Button || MC.View == MineCell.MineCellView.Question)
+                            if (MineField[R, C].View == MineCell.MineCellView.Button || MineField[R, C].View == MineCell.MineCellView.Question)
                             {
-                                mine_Click(MC, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+                                mine_Click(MineField[R, C], new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
                             }
                         }
                     }
