@@ -36,6 +36,7 @@
             this.beginnerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.intermediateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.advanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.customToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.cheatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
@@ -73,6 +74,7 @@
             this.beginnerToolStripMenuItem,
             this.intermediateToolStripMenuItem,
             this.advanceToolStripMenuItem,
+            this.customToolStripMenuItem,
             this.toolStripMenuItem2,
             this.cheatToolStripMenuItem,
             this.toolStripMenuItem3,
@@ -84,6 +86,7 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
             this.newToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.newToolStripMenuItem.Text = "&New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.buttonNewGame_Click);
@@ -95,6 +98,8 @@
             // 
             // beginnerToolStripMenuItem
             // 
+            this.beginnerToolStripMenuItem.Checked = true;
+            this.beginnerToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.beginnerToolStripMenuItem.Name = "beginnerToolStripMenuItem";
             this.beginnerToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.beginnerToolStripMenuItem.Text = "&Beginner";
@@ -114,6 +119,13 @@
             this.advanceToolStripMenuItem.Text = "&Advanced";
             this.advanceToolStripMenuItem.Click += new System.EventHandler(this.advanceToolStripMenuItem_Click);
             // 
+            // customToolStripMenuItem
+            // 
+            this.customToolStripMenuItem.Name = "customToolStripMenuItem";
+            this.customToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.customToolStripMenuItem.Text = "&Custom";
+            this.customToolStripMenuItem.Click += new System.EventHandler(this.customToolStripMenuItem_Click);
+            // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
@@ -123,7 +135,7 @@
             // 
             this.cheatToolStripMenuItem.Name = "cheatToolStripMenuItem";
             this.cheatToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.cheatToolStripMenuItem.Text = "&Cheat";
+            this.cheatToolStripMenuItem.Text = "C&heat";
             this.cheatToolStripMenuItem.Click += new System.EventHandler(this.cheatToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
@@ -306,6 +318,7 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Panel panelTop;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.ToolStripMenuItem customToolStripMenuItem;
     }
 }
 

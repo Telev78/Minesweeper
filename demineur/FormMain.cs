@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Drawing.Text;
-using System.IO.MemoryMappedFiles;
 
 namespace minesweeper
 {
@@ -14,15 +13,14 @@ namespace minesweeper
         private PrivateFontCollection fonts = new PrivateFontCollection();
         private Font myFont;
 
-        int CellSize = 16;
-        int BoardRows = 9;
-        int BoardCols = 9;
-        int MineCount = 10;
+        const int CellSize = 16;
         int Seconds = 0;
         int MarkedMines = 0;
         MineCell[,] MineField;
         Boolean Done = false;
         Boolean Cheat = false;
+        Difficulty CurrentLevel = Difficulty.Beginner;
+        FormCustom frmCustom = new FormCustom();
 
         public FormMain()
         {
@@ -37,6 +35,7 @@ namespace minesweeper
             labelClock.Font = myFont;
             labelMines.Font = myFont;
             BuildBoard(true);
+
             ResizeForm();
         }
 
@@ -54,12 +53,14 @@ namespace minesweeper
             if (rebuild)
             {
                 this.SuspendLayout();
+                this.Hide();
                 //Loop Through the rows and columns
-                MineField = new MineCell[BoardRows, BoardCols];
+                MineField = new MineCell[CurrentLevel.Rows, CurrentLevel.Colonnes];
+                pnlMine.Visible = false;
                 pnlMine.Controls.Clear();
-                for (int Row = 0; Row <= BoardRows - 1; Row++)
+                for (int Row = 0; Row < CurrentLevel.Rows; Row++)
                 {
-                    for (int Col = 0; Col <= BoardCols - 1; Col++)
+                    for (int Col = 0; Col < CurrentLevel.Colonnes; Col++)
                     {
                         MineCell C = new MineCell();
                         
@@ -81,6 +82,8 @@ namespace minesweeper
                         pnlMine.Controls.Add(C);
                     }
                 }
+                pnlMine.Visible = true;
+                this.Show();
                 this.ResumeLayout();
             }
             else
@@ -98,27 +101,27 @@ namespace minesweeper
             //first click is allways a safe location
             
             Random RX = new Random();
-            for (int i = 1; i <= MineCount; i++)
+            for (int i = 1; i <= CurrentLevel.Mines; i++)
             {
                 int X = 0;
                 int Y = 0;
 
                 do
                 {
-                    X = RX.Next(0, BoardCols);
-                    Y = RX.Next(0, BoardRows);
+                    X = RX.Next(0, CurrentLevel.Colonnes);
+                    Y = RX.Next(0, CurrentLevel.Rows);
                 } while (MineField[Y, X].HasMine || MineField[Y,X].Equals(excludedCell));
                 MineField[Y, X].HasMine = true;
 
             }
 
             //Count the mines
-            for (int Row = 0; Row <= BoardRows - 1; Row++)
-                for (int Col = 0; Col <= BoardCols - 1; Col++)
+            for (int Row = 0; Row < CurrentLevel.Rows; Row++)
+                for (int Col = 0; Col < CurrentLevel.Colonnes; Col++)
                     if (!MineField[Row, Col].HasMine)
                         for (int R = Row - 1; R <= Row + 1; R++)
                             for (int C = Col - 1; C <= Col + 1; C++)
-                                if (R >= 0 && R < BoardRows && C >= 0 && C < BoardCols && !(Row == R && Col == C))
+                                if (R >= 0 && R < CurrentLevel.Rows && C >= 0 && C < CurrentLevel.Colonnes && !(Row == R && Col == C))
                                     if (MineField[R, C].HasMine)
                                         MineField[Row, Col].Number++;
 
@@ -129,26 +132,28 @@ namespace minesweeper
         {
             this.Hide();
             //Loop to make the form the right size for this number of columns
-            this.Width = BoardCols * CellSize;
-            while (this.pnlMine.Width <= (BoardCols * CellSize) + 5)
-            {
-                this.Width += 1;
-            }
+            //this.Width = CurrentLevel.Colonnes * CellSize;
+            //while (this.pnlMine.Width <= (CurrentLevel.Colonnes * CellSize) + 5)
+            //{
+            //    this.Width += 1;
+            //}
 
-            this.Height = (BoardRows * CellSize) + 150;
-            while (this.pnlMine.Height <= (BoardRows * CellSize) + 5)
-            {
-                this.Height += 1;
-            }
+            //this.Height = (CurrentLevel.Rows * CellSize) + 150;
+            //while (this.pnlMine.Height <= (CurrentLevel.Rows * CellSize) + 5)
+            //{
+            //    this.Height += 1;
+            //}
+
+            this.Width = (CurrentLevel.Colonnes * CellSize) + 40;
+            this.Height = (CurrentLevel.Rows * CellSize) + 162;
+
 
             this.Show();
         }
 
-        private void StartGame(int Rows, int Cols, int Mines )
+        private void StartGame(Difficulty level)
         {
-            BoardRows = Rows;
-            BoardCols = Cols;
-            MineCount = Mines;
+            CurrentLevel = level;
             BuildBoard(true);
             ResizeForm();
         }
@@ -156,7 +161,6 @@ namespace minesweeper
         private void buttonNewGame_Click(object sender, EventArgs e)
         {
             BuildBoard();
-            
         }
 
         private void mine_Click(object sender, MouseEventArgs e)
@@ -226,7 +230,7 @@ namespace minesweeper
             M.View = MineCell.MineCellView.Number;
             for (int R = M.Y - 1; R <= M.Y + 1; R++)
                 for (int C = M.X - 1; C <= M.X + 1; C++)
-                    if (R >= 0 && R < BoardRows && C >= 0 && C < BoardCols)
+                    if (R >= 0 && R < CurrentLevel.Rows && C >= 0 && C < CurrentLevel.Colonnes)
                     {
                         MineCell MC = MineField[R, C];
                         if (MC.View == MineCell.MineCellView.Button)
@@ -248,7 +252,7 @@ namespace minesweeper
         private void DoLabels ()
         {
             labelClock.Text = Seconds.ToString("000");
-            labelMines.Text = (MineCount - MarkedMines).ToString("000");
+            labelMines.Text = (CurrentLevel.Mines - MarkedMines).ToString("000");
         }
 
         private void EndGame (Boolean WinGame)
@@ -298,17 +302,51 @@ namespace minesweeper
 
         private void beginnerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            StartGame(9, 9, 10);
+            if (!beginnerToolStripMenuItem.Checked)
+            {
+                beginnerToolStripMenuItem.Checked = true;
+                intermediateToolStripMenuItem.Checked = false;
+                advanceToolStripMenuItem.Checked = false;
+                customToolStripMenuItem.Checked = false;
+                StartGame(Difficulty.Beginner);
+            }
         }
 
         private void intermediateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            StartGame(16,16,40);
+            if (!intermediateToolStripMenuItem.Checked)
+            {
+                beginnerToolStripMenuItem.Checked = false;
+                intermediateToolStripMenuItem.Checked = true;
+                advanceToolStripMenuItem.Checked = false;
+                customToolStripMenuItem.Checked = false;
+                StartGame(Difficulty.Intermediate);
+            }
         }
 
         private void advanceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            StartGame(16,30,99);
+            if (!advanceToolStripMenuItem.Checked)
+            {
+                beginnerToolStripMenuItem.Checked = false;
+                intermediateToolStripMenuItem.Checked = false;
+                advanceToolStripMenuItem.Checked = true;
+                customToolStripMenuItem.Checked = false;
+                StartGame(Difficulty.Advanced);
+            }
+        }
+
+        private void customToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmCustom.Tag = CurrentLevel;
+            if (frmCustom.ShowDialog(this) == DialogResult.OK)
+            {
+                beginnerToolStripMenuItem.Checked = false;
+                intermediateToolStripMenuItem.Checked = false;
+                advanceToolStripMenuItem.Checked = false;
+                customToolStripMenuItem.Checked = true;
+                StartGame((Difficulty)frmCustom.Tag);
+            }
         }
 
         private Font LoadFont(byte[] fontData)
@@ -335,7 +373,7 @@ namespace minesweeper
                 for (int R = M.Y - 1; R <= M.Y + 1; R++)
                     for (int C = M.X - 1; C <= M.X + 1; C++)
                     {
-                        if (R >= 0 && R < BoardRows && C >= 0 && C < BoardCols)
+                        if (R >= 0 && R < CurrentLevel.Rows && C >= 0 && C < CurrentLevel.Colonnes)
                         {
                             if (MineField[R, C].View == MineCell.MineCellView.Flag)
                                 FC++;
@@ -348,7 +386,7 @@ namespace minesweeper
                 for (int R = M.Y - 1; R <= M.Y + 1; R++)
                     for (int C = M.X - 1; C <= M.X + 1; C++)
                     {
-                        if (R >= 0 && R < BoardRows && C >= 0 && C < BoardCols)
+                        if (R >= 0 && R < CurrentLevel.Rows && C >= 0 && C < CurrentLevel.Colonnes)
                         {
                             if (MineField[R, C].View == MineCell.MineCellView.Button || MineField[R, C].View == MineCell.MineCellView.Question)
                             {
