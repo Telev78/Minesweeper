@@ -4,7 +4,7 @@
     {
         public static Difficulty Beginner { get; } = new Difficulty(9, 9, 10);
         public static Difficulty Intermediate { get; } = new Difficulty(16, 16, 40);
-        public static Difficulty Advanced { get; } = new Difficulty(30, 16, 99);
+        public static Difficulty Expert { get; } = new Difficulty(30, 16, 99);
 
         private Difficulty(int colonnes, int rows, int mines)
         {

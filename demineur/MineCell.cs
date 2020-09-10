@@ -18,25 +18,11 @@ namespace minesweeper
         };
 
         private MineCellView mView;
-        private int mNumber;
-        private Boolean mHasMine;
-        private int myX;
-        private int myY;
         private Color mButtonColor = Color.LightGray;
-        private Boolean mHasExplosed = false;
-        private Boolean mWrongFlag = false;
 
-        public Boolean WrongFlag
-        {
-            get { return mWrongFlag; }
-            set { mWrongFlag = value; }
-        }
+        public bool WrongFlag { get; set; } = false;
 
-        public Boolean HasExplosed
-        {
-            get { return mHasExplosed; }
-            set { mHasExplosed = value; }
-        }
+        public bool HasExplosed { get; set; } = false;
 
         public Color ButtonColor
         {
@@ -44,28 +30,12 @@ namespace minesweeper
             set { mButtonColor = value; this.Invalidate(); }
         }
 
-        public Boolean HasMine
-        {
-            get { return mHasMine; }
-            set { mHasMine = value; }
-        }
+        public bool HasMine { get; set; }
 
-        public int X
-        {
-            get { return myX; }
-            set { myX = value; }
-        }
+        public int X { get; set; }
 
-        public int Y
-        {
-            get { return myY; }
-            set { myY = value; }
-        }
-        public int Number
-        {
-            get { return mNumber; }
-            set { mNumber = value; }
-        } 
+        public int Y { get; set; }
+        public int Number { get; set; }
 
         public MineCellView View
         {
@@ -103,7 +73,7 @@ namespace minesweeper
                         e.Graphics.ResetTransform();
                         e.Graphics.TranslateTransform(this.Width / 2, this.Height / 2);
                         e.Graphics.ScaleTransform(this.Width / 2, this.Height / 2);
-                        if (!mHasExplosed)
+                        if (!HasExplosed)
                             e.Graphics.Clear(Color.LightGray);
                         else
                             e.Graphics.Clear(Color.Red);
@@ -136,11 +106,11 @@ namespace minesweeper
                         Pen BPen = new Pen(Color.Gray, .05F);
                         e.Graphics.DrawRectangle(BPen, BRect);
 
-                        if(mWrongFlag)
+                        if(WrongFlag)
                         {
-                            Pen mPen = new Pen(Color.Red, .2F);
-                            e.Graphics.DrawLine(mPen, new PointF(-.8F, -.8F), new PointF(.8F, .8F));
-                            e.Graphics.DrawLine(mPen, new PointF(-.8F, .8F), new PointF(.8F, -.8F));
+                            Pen mPen = new Pen(Color.Red, (Single).2F);
+                            e.Graphics.DrawLine(mPen, new PointF(-.7F, -.6F), new PointF(.7F, .7F));
+                            e.Graphics.DrawLine(mPen, new PointF(-.7F, .7F), new PointF(.7F, -.6F));
                         }
                     }
                     break;
@@ -154,13 +124,13 @@ namespace minesweeper
                         e.Graphics.ScaleTransform(this.Width / 2, this.Height / 2);
                         e.Graphics.Clear(Color.LightGray);
 
-                        if (mNumber > 0 && mNumber <= 8)
+                        if (Number > 0 && Number <= 8)
                         {
                             //Draw Number
-                            SolidBrush NBrush = new SolidBrush(NColors[mNumber - 1]);
+                            SolidBrush NBrush = new SolidBrush(NColors[Number - 1]);
                             Font myFont = new Font("Times", 1.5F, FontStyle.Bold, GraphicsUnit.World);
-                            SizeF SS = e.Graphics.MeasureString(mNumber.ToString(), myFont);
-                            e.Graphics.DrawString(mNumber.ToString(), myFont, NBrush, -SS.Width / 2, -SS.Height / 2);
+                            SizeF SS = e.Graphics.MeasureString(Number.ToString(), myFont);
+                            e.Graphics.DrawString(Number.ToString(), myFont, NBrush, -SS.Width / 2, -SS.Height / 2);
                         }
                         //Draw Border
                         Rectangle BRect = new Rectangle(-1, -1, 2, 2);
